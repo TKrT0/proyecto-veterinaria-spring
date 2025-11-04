@@ -4,15 +4,14 @@ import com.veterinaria.negocio.servicio.IClienteServicio;
 import com.veterinaria.negocio.servicio.IMascotaServicio;
 import com.veterinaria.sistema.entidad.Cliente;
 import com.veterinaria.sistema.entidad.Mascota;
+import com.veterinaria.ui.cita.CitaForm;
+import com.veterinaria.ui.historial.HistorialCitasForm;
 import com.veterinaria.ui.mascota.MascotaForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ContainerAdapter;
-import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,17 +39,27 @@ public class ClienteForm extends JFrame {
     private JScrollPane clientesScrollPane;
     private JTable mascotasTabla;
     private JPanel panelTablaMascotas;
+    private JButton programarCitaButton;
+    private JButton historialButton;
     private DefaultTableModel tablaModeloClientes;
     private DefaultTableModel tablaModeloMascotas;
 
     private IClienteServicio clienteServicio;
     private IMascotaServicio mascotaServicio;
+    private ICitaServicio citaServicio;
+    private HistorialCitasForm historialCitasForm;
 
     @Autowired
     public ClienteForm(IClienteServicio clienteServicio, IMascotaServicio mascotaServicio) {
         this.clienteServicio = clienteServicio;
         this.mascotaServicio = mascotaServicio;
+        this.citaServicio = citaServicio;
+        this.historialCitasForm = historialCitasForm;
         iniciarForma();
+
+        historialButton.addActionListener(e -> abrirHistorial());
+
+        programarCitaButton.addActionListener(e -> abrirDialogoCita());
         guardarButton.addActionListener(e -> registrarCliente());
         agregarMascotaButton.addActionListener(e -> abrirDialogoMascota());
         listarClientes();
@@ -67,6 +76,28 @@ public class ClienteForm extends JFrame {
                }
            }
         });
+    }
+
+    private void abrirHistorial() {
+        // Carga los datos frescos de la BD
+        historialCitasForm.cargarDatos();
+        // Muestra la ventana
+        historialCitasForm.setVisible(true);
+    }
+
+    private void abrirDialogoCita() {
+        // Primero, verifica que una mascota esté seleccionada
+        int filaMascota = mascotasTabla.getSelectedRow();
+        if (filaMascota == -1) {
+            mostrarMensaje("Debe seleccionar una MASCOTA para programar una cita", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Obtiene el ID de la mascota de la tabla de mascotas
+        Integer idMascota = (Integer) tablaModeloMascotas.getValueAt(filaMascota, 0);
+
+        CitaForm citaForm = new CitaForm(this, this.citaServicio, idMascota);
+        citaForm.setVisible(true);
     }
 
     /**
