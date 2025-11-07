@@ -19,7 +19,6 @@ public class VeterinariaApplication {
 		ConfigurableApplicationContext context = new SpringApplicationBuilder(VeterinariaApplication.class)
                 .headless(false)
                 .run(args);
-
         SwingUtilities.invokeLater(() -> {
             ClienteForm ventana = context.getBean(ClienteForm.class);
             ventana.setVisible(true);
