@@ -1,5 +1,6 @@
 package com.veterinaria.ui.cliente;
 
+import com.veterinaria.negocio.servicio.ICitaServicio;
 import com.veterinaria.negocio.servicio.IClienteServicio;
 import com.veterinaria.negocio.servicio.IMascotaServicio;
 import com.veterinaria.sistema.entidad.Cliente;
@@ -8,6 +9,7 @@ import com.veterinaria.ui.cita.CitaForm;
 import com.veterinaria.ui.historial.HistorialCitasForm;
 import com.veterinaria.ui.mascota.MascotaForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -20,7 +22,7 @@ public class ClienteForm extends JFrame {
     // Validación de campos en TextField (email, teléfono, etc)
     private static final String EMAIL_REGEX =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     private static final String TEL_REGEX =
             "^[0-9]{10}$";
     private JTextField nombreTexto;
@@ -50,7 +52,7 @@ public class ClienteForm extends JFrame {
     private HistorialCitasForm historialCitasForm;
 
     @Autowired
-    public ClienteForm(IClienteServicio clienteServicio, IMascotaServicio mascotaServicio) {
+    public ClienteForm(IClienteServicio clienteServicio, IMascotaServicio mascotaServicio, ICitaServicio citaServicio, HistorialCitasForm historialCitasForm) {
         this.clienteServicio = clienteServicio;
         this.mascotaServicio = mascotaServicio;
         this.citaServicio = citaServicio;
@@ -187,7 +189,6 @@ public class ClienteForm extends JFrame {
         if(!email.isEmpty() && !email.matches(EMAIL_REGEX)){
             errores.add("El formato del email es incorrecto");
         }
-        // No hay errores
         if (errores.isEmpty()) {
             return true;
         }
