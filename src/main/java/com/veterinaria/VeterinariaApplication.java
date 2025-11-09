@@ -1,5 +1,6 @@
 package com.veterinaria;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.veterinaria.ui.cliente.ClienteForm;
 import org.springframework.boot.SpringApplication;
@@ -12,10 +13,8 @@ import java.awt.*;
 
 @SpringBootApplication
 public class VeterinariaApplication {
-
-	public static void main(String[] args) {
-
-        FlatDarkLaf.setup();
+    static void main(String[] args) {
+        FlatDarculaLaf.setup();
 		ConfigurableApplicationContext context = new SpringApplicationBuilder(VeterinariaApplication.class)
                 .headless(false)
                 .run(args);
@@ -23,9 +22,5 @@ public class VeterinariaApplication {
             ClienteForm ventana = context.getBean(ClienteForm.class);
             ventana.setVisible(true);
         });
-
 	}
 }
-
-
-// Soy el más pndejo de México - JonaGod

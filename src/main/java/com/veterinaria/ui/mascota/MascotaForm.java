@@ -70,7 +70,7 @@ public class MascotaForm extends JDialog {
     private void iniciarForma(JFrame owner) {
         setContentPane(panelPrincipal);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setSize(400, 300);
+        setSize(400, 500);
         setLocationRelativeTo(owner);
     }
 }

@@ -2,14 +2,16 @@ package com.veterinaria.ui.cliente;
 
 import com.veterinaria.negocio.servicio.ICitaServicio;
 import com.veterinaria.negocio.servicio.IClienteServicio;
+import com.veterinaria.negocio.servicio.IHistorialClinicoServicio;
 import com.veterinaria.negocio.servicio.IMascotaServicio;
 import com.veterinaria.sistema.entidad.Cliente;
+import com.veterinaria.sistema.entidad.HistorialClinico;
 import com.veterinaria.sistema.entidad.Mascota;
 import com.veterinaria.ui.cita.CitaForm;
 import com.veterinaria.ui.historial.HistorialCitasForm;
+import com.veterinaria.ui.historial_clinico.HistorialClinicoForm;
 import com.veterinaria.ui.mascota.MascotaForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -43,6 +45,7 @@ public class ClienteForm extends JFrame {
     private JPanel panelTablaMascotas;
     private JButton programarCitaButton;
     private JButton historialButton;
+    private JButton verHistorialButton;
     private DefaultTableModel tablaModeloClientes;
     private DefaultTableModel tablaModeloMascotas;
 
@@ -50,13 +53,21 @@ public class ClienteForm extends JFrame {
     private IMascotaServicio mascotaServicio;
     private ICitaServicio citaServicio;
     private HistorialCitasForm historialCitasForm;
+    private IHistorialClinicoServicio historialServicio;
 
     @Autowired
-    public ClienteForm(IClienteServicio clienteServicio, IMascotaServicio mascotaServicio, ICitaServicio citaServicio, HistorialCitasForm historialCitasForm) {
+    public ClienteForm(IClienteServicio clienteServicio,
+                       IMascotaServicio mascotaServicio,
+                       ICitaServicio citaServicio,
+                       HistorialCitasForm historialCitasForm,
+                       IHistorialClinicoServicio historialServicio) {
+
         this.clienteServicio = clienteServicio;
         this.mascotaServicio = mascotaServicio;
         this.citaServicio = citaServicio;
         this.historialCitasForm = historialCitasForm;
+        this.historialServicio = historialServicio;
+
         iniciarForma();
 
         historialButton.addActionListener(e -> abrirHistorial());
@@ -78,6 +89,20 @@ public class ClienteForm extends JFrame {
                }
            }
         });
+        verHistorialButton.addActionListener(e -> abrirDialogoHistorialClinico());
+    }
+
+    private void abrirDialogoHistorialClinico() {
+        int filaMascota = mascotasTabla.getSelectedRow();
+        if(filaMascota == -1){
+            mostrarMensaje("Debe seleccionar una MASCOTA para ver su historial", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Integer idMascota = (Integer) tablaModeloMascotas.getValueAt(filaMascota, 0);
+
+        HistorialClinicoForm historialForm = new HistorialClinicoForm(this, this.historialServicio, idMascota);
+        historialForm.setVisible(true);
     }
 
     private void abrirHistorial() {
@@ -132,6 +157,7 @@ public class ClienteForm extends JFrame {
         Integer idCliente = (Integer) tablaModeloClientes.getValueAt(filaSeleccionada, 0);
         MascotaForm mascotaForm = new MascotaForm(this, this.mascotaServicio, idCliente);
         mascotaForm.setVisible(true);
+        listarMascotas(idCliente);
     }
 
     private void registrarCliente() {
@@ -216,7 +242,6 @@ public class ClienteForm extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 600);
         setLocationRelativeTo(null);
-
     }
 
     private void createUIComponents() {
@@ -231,7 +256,6 @@ public class ClienteForm extends JFrame {
         this.tablaModeloClientes.setColumnIdentifiers(columnas);
         this.clientesTabla = new JTable(tablaModeloClientes);
         this.clientesTabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        // Tabla para mascotas
         this.tablaModeloMascotas = new DefaultTableModel(0,4){
             @Override
             public boolean isCellEditable(int row, int column) {

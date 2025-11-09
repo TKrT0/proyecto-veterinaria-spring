@@ -30,19 +30,17 @@ public class CitaForm extends JDialog {
         this.citaServicio = citaServicio;
         this.idMascota = idMascota;
 
-        iniciarForma(owner); // Esto infla el formulario (panelFecha, panelHora, etc.)
+        iniciarForma(owner);
 
-        // !! AÑADE ESTA LLAMADA !!
         inicializarComponentesCustom();
 
         guardarCitaButton.addActionListener(e -> registrarCita());
     }
     private void inicializarComponentesCustom() {
-        // 1. Crear el JDateChooser
+
         this.dateChooserControl = new JDateChooser();
         this.dateChooserControl.setDateFormatString("yyyy-MM-dd");
 
-        // 2. Crear el JSpinner (con el modelo de horas)
         String[] horasHabiles = {
                 "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
                 "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
@@ -51,11 +49,9 @@ public class CitaForm extends JDialog {
         SpinnerListModel model = new SpinnerListModel(horasHabiles);
         this.horaSpinnerControl = new JSpinner(model);
 
-        // 3. Añadir los componentes a los paneles (usando BorderLayout)
         this.panelFecha.add(this.dateChooserControl, java.awt.BorderLayout.CENTER);
         this.panelHora.add(this.horaSpinnerControl, java.awt.BorderLayout.CENTER);
 
-        // Forzar a los paneles a re-dibujarse con el nuevo componente
         this.panelFecha.revalidate();
         this.panelFecha.repaint();
         this.panelHora.revalidate();
@@ -75,14 +71,10 @@ public class CitaForm extends JDialog {
         }
 
         try {
-            // 3. Convertir los datos al formato LocalDateTime (como en la Entidad Cita)
-
-            // Convertir java.util.Date (del JDateChooser) a LocalDate
             LocalDate localDate = fechaSeleccionada.toInstant()
                     .atZone(ZoneId.systemDefault())
                     .toLocalDate();
 
-            // Convertir String (del JSpinner) a LocalTime
             LocalTime localTime = LocalTime.parse(horaSeleccionada);
 
             // Combinar ambos
