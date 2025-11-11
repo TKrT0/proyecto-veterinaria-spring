@@ -1,0 +1,267 @@
+.root {
+    -fx-background-color: #F9F9F9;
+    -fx-font-family: "Segoe UI", "Roboto", system-ui, sans-serif;
+    -fx-text-fill: #333333;
+
+    -color-bg:            #F9F9F9;
+    -color-surface:       #FFFFFF;
+    -color-surface-soft:  #EBFDFB;
+    -color-border-soft:   #DADFE3;
+
+    -color-primary:       #00A79D;
+    -color-primary-alt:   #007A87;
+    -color-accent:        #FF7F50;
+
+    -color-text:          #333333;
+    -color-text-soft:     #7A7A7A;
+
+    -color-success:       #2ECC71;
+    -color-error:         #E74C3C;
+
+    -radius-md: 10;
+    -radius-lg: 16;
+    -shadow-soft: dropshadow(gaussian, rgba(0,0,0,0.08), 18, 0.2, 0, 4);
+}
+
+.card {
+    -fx-background-color: -color-surface;
+    -fx-background-radius: -radius-lg;
+    -fx-border-radius: -radius-lg;
+    -fx-border-color: transparent;
+    -fx-padding: 14;
+    -fx-effect: -shadow-soft;
+}
+
+.card:focused {
+    -fx-effect: dropshadow(gaussian, rgba(0,167,157,0.22), 20, 0.25, 0, 2);
+}
+
+.title {
+    -fx-text-fill: -color-primary-alt;
+    -fx-font-size: 18px;
+    -fx-font-weight: 700;
+}
+
+.subtitle {
+    -fx-text-fill: -color-text-soft;
+    -fx-font-size: 12px;
+}
+
+.label {
+    -fx-text-fill: -color-text;
+}
+
+.button-primary {
+    -fx-background-color: -color-accent;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: 600;
+    -fx-background-radius: -radius-md;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+.button-primary:hover {
+    -fx-background-color: derive(-color-accent, -8%);
+}
+.button-primary:pressed {
+    -fx-background-color: derive(-color-accent, -18%);
+}
+
+.button-ghost {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-primary-alt;
+    -fx-font-weight: 500;
+    -fx-background-radius: -radius-md;
+    -fx-padding: 6 12;
+    -fx-border-radius: -radius-md;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+}
+.button-ghost:hover {
+    -fx-background-color: -color-surface-soft;
+    -fx-border-color: rgba(0,167,157,0.35);
+}
+.button-ghost:pressed {
+    -fx-background-color: rgba(0,167,157,0.12);
+}
+
+.status-success {
+    -fx-text-fill: -color-success;
+}
+
+.status-error {
+    -fx-text-fill: -color-error;
+}
+
+/* Tabla */
+
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: -color-border-soft;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 0;
+}
+
+.table-view .virtual-flow,
+.table-view .clipped-container,
+.table-view .sheet {
+    -fx-background-color: transparent;
+}
+
+/* Encabezado */
+.table-view .column-header-background {
+    -fx-background-color: #EBFDFB;              /* menta pálido */
+    -fx-background-radius: 10 10 0 0;
+    -fx-border-color: transparent transparent -color-border-soft transparent;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: -color-primary-alt;          /* azul petróleo */
+    -fx-font-size: 11px;
+    -fx-font-weight: 600;
+}
+
+/* Filas */
+.table-row-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-text;
+    -fx-cell-size: 26px;
+}
+
+.table-row-cell:filled:hover {
+    -fx-background-color: rgba(0,167,157,0.04);
+}
+
+.table-row-cell:filled:selected {
+    -fx-background-color: rgba(255,127,80,0.16);
+    -fx-text-fill: -color-text;
+}
+
+.table-view .table-cell {
+    -fx-border-color: transparent transparent rgba(0,0,0,0.04) transparent;
+    -fx-padding: 4 6 4 6;
+}
+
+.table-view .placeholder .label {
+    -fx-text-fill: -color-text-soft;
+    -fx-font-style: italic;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+.scroll-bar .thumb {
+    -fx-background-color: rgba(0,0,0,0.18);
+    -fx-background-radius: 8;
+}
+.scroll-bar .track {
+    -fx-background-color: transparent;
+}
+
+.mfx-text-field,
+.mfx-password-field {
+    -mfx-float-mode: BORDER;
+    -mfx-border-gap: 10;
+    -mfx-animated: true;
+    -fx-pref-height: 40;
+    -fx-max-width: 170;
+
+    -fx-background-color: transparent;
+    -fx-border-color: -color-border-soft;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+
+    -fx-text-fill: -color-text;
+    -fx-prompt-text-fill: -color-text-soft;
+    -fx-padding: 8 10 8 10;
+}
+
+.mfx-text-field:focused,
+.mfx-password-field:focused {
+    -fx-border-color: -color-primary;
+    -fx-effect: dropshadow(gaussian, rgba(0,167,157,0.18), 14, 0.3, 0, 1);
+}
+
+.mfx-text-field .floating-text,
+.mfx-password-field .floating-text {
+    -fx-text-fill: -color-primary-alt;
+    -fx-font-size: 11px;
+    -fx-font-weight: 600;
+}
+
+/* Botones MFX */
+
+.mfx-button.button-primary {
+    -fx-background-color: -color-accent;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: 600;
+    -fx-background-radius: 8;
+    -fx-pref-height: 40;
+    -fx-max-width: 240;
+    -fx-cursor: hand;
+}
+.button-primary:hover,.mfx-button.button-primary:hover {
+    -fx-background-color: derive(-color-accent, -8%);
+}
+
+/* BOTÓN PRINCIPAL */
+
+.button-primary,
+.mfx-button.button-primary {
+    -fx-background-color: -color-accent;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: 600;
+    -fx-background-radius: 10;
+    -fx-pref-height: 40;
+    -fx-max-width: 170;
+    -fx-cursor: hand;
+}
+
+.button-primary:hover,
+.mfx-button.button-primary:hover {
+    -fx-background-color: derive(-color-accent, -8%);
+}
+
+/* BOTÓN SECUNDARIO */
+
+.button-ghost,
+.mfx-button.button-ghost {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-primary-alt;
+    -fx-font-weight: 500;
+    -fx-background-radius: 10;
+    -fx-pref-height: 30;
+    -fx-max-width: 150;
+    -fx-cursor: hand;
+}
+
+.mfx-button.button-ghost:hover {
+    -fx-background-color: -color-surface-soft;
+}
+
+/* Estados*/
+
+.mfx-text-field.input-error {
+    -fx-border-color: -color-error !important;
+}
+.mfx-text-field.input-success {
+    -fx-border-color: -color-success !important;
+}
+
+/* ICONOS */
+
+.button-primary .ikonli-font-icon,
+.mfx-button.button-primary .ikonli-font-icon {
+    -fx-icon-color: #FFFFFF;
+}
+
+.button-ghost .ikonli-font-icon,
+.mfx-button.button-ghost .ikonli-font-icon {
+    -fx-icon-color: -color-primary-alt;
+}

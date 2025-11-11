@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.scene.layout.Region?>
+
+<?import javafx.scene.layout.Region?>
+<BorderPane fx:id="root"
+            prefHeight="600.0" prefWidth="970.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.veterinaria.ui.cliente.ClienteControlador"
+            stylesheets="@../../../../css/app_theme.css"
+            styleClass="root">
+
+    <center>
+        <VBox spacing="10.0" styleClass="card">
+            <children>
+                <Label text="Clientes Registrados" styleClass="title" />
+                <TableView fx:id="clientesTabla" prefHeight="250.0">
+                    <columns>
+                        <TableColumn fx:id="colId" prefWidth="30.0" text="ID" />
+                        <TableColumn fx:id="colNombre" prefWidth="90.0" text="Nombre" />
+                        <TableColumn fx:id="colApellido" prefWidth="70.0" text="Apellido" />
+                        <TableColumn fx:id="colTelefono" prefWidth="80.0" text="Teléfono" />
+                        <TableColumn fx:id="colEmail" prefWidth="160.0" text="Email" />
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+    </center>
+
+    <left>
+        <VBox prefWidth="235.0" spacing="8.0" styleClass="card" style="-fx-padding: 16 16 16 16;">
+            <children>
+                <Label text="Registro de Clientes" styleClass="title" />
+                <MFXTextField fx:id="nombreTexto"
+                              floatingText="Nombre"
+                              promptText="Nombre del cliente">
+                    <VBox.margin>
+                        <Insets top="30.0"/>
+                    </VBox.margin>
+                </MFXTextField>
+                <MFXTextField fx:id="apellidoTexto" floatingText="Apellido" promptText="Apellido del cliente">
+                    <VBox.margin>
+                        <Insets top="15.0"/>
+                    </VBox.margin>
+                </MFXTextField>
+                <MFXTextField fx:id="telefonoTexto" floatingText="Teléfono" promptText="Teléfono a 10 dígitos">
+                    <VBox.margin>
+                        <Insets top="15.0"/>
+                    </VBox.margin>
+                </MFXTextField>
+                <MFXTextField fx:id="emailTexto" floatingText="Email" promptText="correo@ejemplo.com">
+                    <VBox.margin>
+                        <Insets top="15.0"/>
+                    </VBox.margin>
+                </MFXTextField>
+                <MFXTextField fx:id="direccionTexto" floatingText="Dirección" promptText="Dirección (opcional)">
+                    <VBox.margin>
+                        <Insets top="15.0" right="0.0" bottom="0.0" left="0.0"/>
+                    </VBox.margin>
+                </MFXTextField>
+                <Region VBox.vgrow="ALWAYS"/>
+                <MFXButton fx:id="guardarButton"
+                        maxWidth="1.7976931348623157E308"
+                        text="Guardar Cliente"
+                        onAction="#registrarCliente"
+                        styleClass="button-primary">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-save" iconSize="14"/>
+                    </graphic>
+                </MFXButton>
+                <MFXButton fx:id="historialButton"
+                        maxWidth="1.7976931348623157E308"
+                        text="Ver Historial de Citas"
+                        onAction="#abrirHistorial"
+                        styleClass="button-ghost" />
+            </children>
+        </VBox>
+    </left>
+
+    <right>
+        <VBox prefWidth="300.0" spacing="8.0"
+              styleClass="card" style="-fx-padding: 16 16 16 16;">
+            <children>
+                <Label text="Mascotas del Cliente" styleClass="title" />
+                <TableView fx:id="mascotasTabla" prefHeight="250.0">
+                    <columns>
+                        <TableColumn fx:id="colMascotaId" prefWidth="20.0" text="ID" />
+                        <TableColumn fx:id="colMascotaNombre" prefWidth="100.0" text="Nombre" />
+                        <TableColumn fx:id="colMascotaEspecie" prefWidth="95.0" text="Especie" />
+                        <TableColumn fx:id="colMascotaRaza" prefWidth="80.0" text="Raza" />
+                    </columns>
+                </TableView>
+                <Region VBox.vgrow="ALWAYS"/>
+                <MFXButton fx:id="agregarMascotaButton"
+                        maxWidth="1.7976931348623157E308"
+                        text="Agregar Mascota"
+                        onAction="#abrirDialogoMascota"
+                        styleClass="button-primary">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-plus" iconSize="14"/>
+                    </graphic>
+                </MFXButton>
+                <MFXButton fx:id="programarCitaButton"
+                        maxWidth="1.7976931348623157E308"
+                        text="Programar Cita"
+                        onAction="#abrirDialogoCita"
+                        styleClass="button-primary">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-calendar-plus" iconSize="14"/>
+                    </graphic>
+                </MFXButton>
+                <MFXButton fx:id="verHistorialButton"
+                        maxWidth="1.7976931348623157E308"
+                        text="Ver Historial Clínico"
+                        onAction="#abrirDialogoHistorialClinico"
+                        styleClass="button-ghost">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-notes-medical" iconSize="14"/>
+                    </graphic>
+                </MFXButton>
+            </children>
+        </VBox>
+    </right>
+</BorderPane>
