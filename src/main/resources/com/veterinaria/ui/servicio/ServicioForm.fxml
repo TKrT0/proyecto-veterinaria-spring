@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane prefHeight="500.0" prefWidth="700.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.veterinaria.ui.servicio.ServicioControlador"
+            stylesheets="@../../../../css/app_theme.css"
+            styleClass="root">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+
+    <left>
+        <VBox prefWidth="250.0" spacing="8.0" styleClass="card" style="-fx-padding: 16;">
+            <children>
+                <Label fx:id="tituloFormulario" text="Agregar Servicio" styleClass="title" />
+
+                <MFXTextField fx:id="nombreTexto" floatingText="Nombre del Servicio">
+                    <VBox.margin>
+                        <Insets top="30.0"/>
+                    </VBox.margin>
+                </MFXTextField>
+
+                <MFXTextField fx:id="descripcionTexto" floatingText="Descripción (Opcional)">
+                    <VBox.margin>
+                        <Insets top="15.0"/>
+                    </VBox.margin>
+                </MFXTextField>
+
+                <MFXTextField fx:id="precioTexto" floatingText="Precio (Ej: 500.00)">
+                    <VBox.margin>
+                        <Insets top="15.0"/>
+                    </VBox.margin>
+                </MFXTextField>
+
+                <MFXButton fx:id="guardarButton" text="Guardar Servicio"
+                           onAction="#guardarServicio" styleClass="button-primary"
+                           maxWidth="1.7976931348623157E308">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-save" iconSize="14"/>
+                    </graphic>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </MFXButton>
+
+                <MFXButton fx:id="limpiarButton" text="Limpiar"
+                           onAction="#limpiarCampos" styleClass="button-ghost"
+                           maxWidth="1.7976931348623157E308" />
+            </children>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="10.0" styleClass="card" style="-fx-padding: 16; -fx-margin-left: 10;">
+            <children>
+                <Label text="Catálogo de Servicios" styleClass="title" />
+                <TableView fx:id="tablaServicios" prefHeight="350.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
+                        <TableColumn fx:id="colNombre" prefWidth="150.0" text="Nombre" />
+                        <TableColumn fx:id="colPrecio" prefWidth="100.0" text="Precio" />
+                    </columns>
+                </TableView>
+                <MFXButton fx:id="eliminarButton" text="Eliminar Seleccionado"
+                           onAction="#eliminarServicio" styleClass="button-ghost"
+                           style="-fx-text-fill: #E74C3C;"
+                           maxWidth="1.7976931348623157E308">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-trash" iconSize="14" style="-fx-icon-color: #E74C3C;"/>
+                    </graphic>
+                </MFXButton>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

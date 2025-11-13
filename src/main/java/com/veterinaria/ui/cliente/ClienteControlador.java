@@ -1,6 +1,8 @@
 package com.veterinaria.ui.cliente;
 
 import com.veterinaria.ui.cita.CitaControlador;
+import com.veterinaria.ui.facturacion.ClienteFacturasControlador;
+import com.veterinaria.ui.facturacion.FacturacionControlador;
 import com.veterinaria.ui.historial_clinico.HistorialClinicoControlador;
 import com.veterinaria.ui.mascota.MascotaControlador;
 import javafx.collections.FXCollections;
@@ -95,6 +97,14 @@ public class ClienteControlador {
     private MFXButton historialButton;
     @FXML
     private MFXButton programarCitaButton;
+    @FXML
+    private MFXButton adminServiciosButton;
+    @FXML
+    private MFXButton generarFacturaButton;
+    @FXML
+    private MFXButton historialPagosButton;
+    @FXML
+    private MFXButton dashboardButton;
 
     @FXML
     private BorderPane root;
@@ -361,6 +371,111 @@ public class ClienteControlador {
         } catch (Exception e) {
             e.printStackTrace();
             mostrarMensaje("Error al abrir el historial de citas: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    private void abrirDialogoServicios() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("com/veterinaria/ui/servicio/ServicioForm.fxml"));
+            loader.setControllerFactory(contextoSpring::getBean);
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Administrador de Servicios del Catálogo");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(adminServiciosButton.getScene().getWindow());
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarMensaje("Error al abrir el administrador de servicios: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    private void abrirDialogoFacturacion() {
+        Cliente clienteSeleccionado = clientesTabla.getSelectionModel().getSelectedItem();
+        if (clienteSeleccionado == null) {
+            mostrarMensaje("Debe seleccionar un CLIENTE para generarle una factura.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("com/veterinaria/ui/facturacion/FacturacionForm.fxml"));
+            loader.setControllerFactory(contextoSpring::getBean);
+            Parent root = loader.load();
+
+            FacturacionControlador facturacionControlador = loader.getController();
+            facturacionControlador.initData(clienteSeleccionado);
+
+            Stage stage = new Stage();
+            stage.setTitle("Nueva Factura para " + clienteSeleccionado.getNombre());
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(generarFacturaButton.getScene().getWindow());
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarMensaje("Error al abrir el formulario de facturación: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    private void abrirDialogoHistorialFacturas() {
+        Cliente clienteSeleccionado = clientesTabla.getSelectionModel().getSelectedItem();
+        if (clienteSeleccionado == null) {
+            mostrarMensaje("Debe seleccionar un CLIENTE para ver su historial de facturas.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("com/veterinaria/ui/facturacion/ClienteFacturasForm.fxml"));
+            loader.setControllerFactory(contextoSpring::getBean);
+            Parent root = loader.load();
+
+            ClienteFacturasControlador historialControlador = loader.getController();
+            historialControlador.initData(clienteSeleccionado);
+
+            Stage stage = new Stage();
+            stage.setTitle("Facturas de " + clienteSeleccionado.getNombre());
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(historialPagosButton.getScene().getWindow());
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarMensaje("Error al abrir el historial de facturas: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    private void abrirDashboard() {
+        System.out.println("Botón dashboard presionado.");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("com/veterinaria/ui/dashboard/DashboardForm.fxml"));
+            if (loader.getLocation() == null) {
+                System.err.println("--- ERROR: No se encontró el FXML en la ruta especificada. ---");
+                mostrarMensaje("Error fatal: No se encontró el archivo DashboardForm.fxml", Alert.AlertType.ERROR);
+                return;
+            }
+            loader.setControllerFactory(contextoSpring::getBean);
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Dashboard de Análisis");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(dashboardButton.getScene().getWindow());
+
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarMensaje("Error al abrir el dashboard: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 

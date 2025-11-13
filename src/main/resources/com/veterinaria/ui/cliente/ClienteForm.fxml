@@ -65,7 +65,7 @@
                 </MFXTextField>
                 <MFXTextField fx:id="direccionTexto" floatingText="Dirección" promptText="Dirección (opcional)">
                     <VBox.margin>
-                        <Insets top="15.0" right="0.0" bottom="0.0" left="0.0"/>
+                        <Insets top="15.0"/>
                     </VBox.margin>
                 </MFXTextField>
                 <Region VBox.vgrow="ALWAYS"/>
@@ -83,6 +83,20 @@
                         text="Ver Historial de Citas"
                         onAction="#abrirHistorial"
                         styleClass="button-ghost" />
+                <MFXButton fx:id="adminServiciosButton"
+                           maxWidth="1.7976931348623157E308"
+                           text="Administrar Servicios"
+                           onAction="#abrirDialogoServicios"
+                           styleClass="button-ghost" />
+                <MFXButton fx:id="dashboardButton"
+                           maxWidth="1.7976931348623157E308"
+                           text="Ver Dashboard"
+                           onAction="#abrirDashboard"
+                           styleClass="button-primary">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-chart-line" iconSize="14"/>
+                    </graphic>
+                </MFXButton>
             </children>
         </VBox>
     </left>
@@ -94,7 +108,7 @@
                 <Label text="Mascotas del Cliente" styleClass="title" />
                 <TableView fx:id="mascotasTabla" prefHeight="250.0">
                     <columns>
-                        <TableColumn fx:id="colMascotaId" prefWidth="20.0" text="ID" />
+                        <TableColumn fx:id="colMascotaId" prefWidth="30.0" text="ID" />
                         <TableColumn fx:id="colMascotaNombre" prefWidth="100.0" text="Nombre" />
                         <TableColumn fx:id="colMascotaEspecie" prefWidth="95.0" text="Especie" />
                         <TableColumn fx:id="colMascotaRaza" prefWidth="80.0" text="Raza" />
@@ -128,6 +142,20 @@
                         <FontIcon iconLiteral="fas-notes-medical" iconSize="14"/>
                     </graphic>
                 </MFXButton>
+                <MFXButton fx:id="generarFacturaButton"
+                           maxWidth="1.7976931348623157E308"
+                           text="Generar Factura para Cliente"
+                           onAction="#abrirDialogoFacturacion"
+                           styleClass="button-primary">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-file-invoice-dollar" iconSize="14"/>
+                    </graphic>
+                </MFXButton>
+                <MFXButton fx:id="historialPagosButton"
+                           maxWidth="1.7976931348623157E308"
+                           text="Ver Historial de Facturas"
+                           onAction="#abrirDialogoHistorialFacturas"
+                           styleClass="button-ghost" />
             </children>
         </VBox>
     </right>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane prefHeight="600.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.veterinaria.ui.facturacion.FacturacionControlador"
+            stylesheets="@../../../../css/app_theme.css"
+            styleClass="root">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+
+    <top>
+        <VBox spacing="5.0" styleClass="card" style="-fx-padding: 16;">
+            <children>
+                <Label text="Generar Nueva Factura" styleClass="title" />
+                <Label fx:id="infoClienteLabel" text="Cliente: Cargando..." />
+            </children>
+        </VBox>
+    </top>
+
+    <left>
+        <VBox prefWidth="250.0" spacing="8.0" styleClass="card" style="-fx-padding: 16; -fx-margin-top: 10;">
+            <children>
+                <Label text="Añadir Servicio" styleClass="title" />
+                <Label text="Servicio:">
+                    <VBox.margin>
+                        <Insets top="10.0"/>
+                    </VBox.margin>
+                </Label>
+                <MFXComboBox fx:id="servicioCombo" floatingText="Seleccionar un servicio" maxWidth="1.7976931348623157E308" />
+
+                <MFXTextField fx:id="cantidadTexto" floatingText="Cantidad">
+                    <VBox.margin>
+                        <Insets top="15.0"/>
+                    </VBox.margin>
+                </MFXTextField>
+
+                <MFXButton fx:id="aniadirButton" text="Añadir a la Factura"
+                           onAction="#aniadirItem" styleClass="button-primary"
+                           maxWidth="1.7976931348623157E308">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-plus" iconSize="14"/>
+                    </graphic>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </MFXButton>
+            </children>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="10.0" styleClass="card" style="-fx-padding: 16; -fx-margin-left: 10; -fx-margin-top: 10;">
+            <children>
+                <Label text="Detalle de la Factura" styleClass="title" />
+                <TableView fx:id="tablaLineas" prefHeight="350.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colServicio" prefWidth="200.0" text="Servicio" />
+                        <TableColumn fx:id="colCantidad" prefWidth="70.0" text="Cantidad" />
+                        <TableColumn fx:id="colPrecioUnit" prefWidth="100.0" text="Precio Unit." />
+                        <TableColumn fx:id="colSubtotal" prefWidth="100.0" text="Subtotal" />
+                    </columns>
+                </TableView>
+
+                <MFXButton fx:id="quitarButton" text="Quitar Seleccionado"
+                           onAction="#quitarItem" styleClass="button-ghost"
+                           style="-fx-text-fill: #E74C3C;"
+                           maxWidth="1.7976931348623157E308">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-trash" iconSize="14" style="-fx-icon-color: #E74C3C;"/>
+                    </graphic>
+                </MFXButton>
+            </children>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="20.0" styleClass="card" style="-fx-padding: 16; -fx-margin-top: 10;">
+            <children>
+                <Label text="TOTAL:" styleClass="title" />
+                <Label fx:id="totalLabel" text="0.00" styleClass="title" style="-fx-font-size: 22px; -fx-text-fill: -color-accent;"/>
+                <MFXButton fx:id="guardarFacturaButton" text="Guardar Factura"
+                           onAction="#guardarFactura" styleClass="button-primary"
+                           prefHeight="40.0" />
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>
